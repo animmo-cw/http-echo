@@ -1,3 +1,8 @@
+# CoreWeave cluster configuration
+# These values should be set via ArgoCD parameters or overridden during deployment
+orgID: ""
+clusterName: ""
+
 # Number of web app replicas
 replicaCount: 2
 
