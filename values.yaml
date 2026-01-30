@@ -19,7 +19,7 @@ ingress:
 
 # App configuration (ConfigMap)
 config:
-  message: "Hello from Helm 👋"
+  message: "Hello from Helm and kubernetes"
   environment: dev
 
 # Secrets (Secret)
