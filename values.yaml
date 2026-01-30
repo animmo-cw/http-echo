@@ -43,8 +43,12 @@ ingress:
   # Enable or disable Ingress creation
   enabled: false
 
-  # Hostname for Ingress (if enabled)
-  host: httpecho.local
+  # Specify which ingress controller to use
+  ingressClassName: traefik
+
+  # Export the following data to the external ingress controller application
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 
 ##########################################################
 # Application configuration (ConfigMap)
