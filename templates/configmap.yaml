@@ -5,3 +5,9 @@ metadata:
   name: {{ include "httpecho.fullname" . }}-config
   labels:
     {{- include "httpecho.labels" . | nindent 4 }}
+data:
+  # Message environment variable
+  MESSAGE: {{ .Values.config.message | quote }}
+
+  # Environment name
+  ENVIRONMENT: {{ .Values.config.environment | quote }}
