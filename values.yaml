@@ -1,0 +1,36 @@
+# Number of web app replicas
+replicaCount: 2
+
+image:
+  repository: hashicorp/http-echo
+  tag: "0.2.3"
+  pullPolicy: IfNotPresent
+
+service:
+  port: 5678
+  type: ClusterIP
+
+# Ingress configuration
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+
+# App configuration (ConfigMap)
+config:
+  message: "Hello from Helm 👋"
+  environment: dev
+
+# Secrets (Secret)
+secrets:
+  redisPassword: "supersecret"
+
+# Pod resource requests/limits
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
