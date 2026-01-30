@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  # ConfigMap name
+  name: {{ include "httpecho.fullname" . }}-config
+  labels:
+    {{- include "httpecho.labels" . | nindent 4 }}
