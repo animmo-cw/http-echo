@@ -1,41 +1,82 @@
+##########################################################
 # CoreWeave cluster configuration
+##########################################################
+
 # These values should be set via ArgoCD parameters or overridden during deployment
 orgID: ""
 clusterName: ""
 
-# Number of web app replicas
+##########################################################
+# General settings
+##########################################################
+
+# Number of replicas for the httpecho Deployment
 replicaCount: 2
 
+##########################################################
+# Container image settings
+##########################################################
 image:
+  # Docker image repository
   repository: hashicorp/http-echo
+
+  # Docker image tag (version)
   tag: "0.2.3"
+
+  # Image pull policy (IfNotPresent, Always, Never)
   pullPolicy: IfNotPresent
 
+##########################################################
+# Service configuration
+##########################################################
 service:
-  port: 5678
+  # Kubernetes Service type (ClusterIP, NodePort, LoadBalancer)
   type: ClusterIP
 
-# Ingress configuration
-ingress:
-  enabled: true
-  ingressClassName: traefik
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+  # Service port to expose the container
+  port: 5678
 
-# App configuration (ConfigMap)
+##########################################################
+# Ingress configuration
+##########################################################
+ingress:
+  # Enable or disable Ingress creation
+  enabled: false
+
+  # Hostname for Ingress (if enabled)
+  host: httpecho.local
+
+##########################################################
+# Application configuration (ConfigMap)
+##########################################################
 config:
-  message: "Hello from Helm and kubernetes"
+  # Message returned by httpecho
+  message: "Hello from Helm and Kubernetes"
+
+  # Environment name, e.g., dev, staging, prod
   environment: dev
 
-# Secrets (Secret)
+##########################################################
+# Secret configuration (Secret)
+##########################################################
 secrets:
+  # Redis password or other sensitive data
   redisPassword: "supersecret"
 
-# Pod resource requests/limits
+##########################################################
+# Pod resource requests and limits
+##########################################################
 resources:
   requests:
+    # Minimum CPU requested by the container
     cpu: 50m
+
+    # Minimum memory requested by the container
     memory: 64Mi
+
   limits:
+    # Maximum CPU allowed for the container
     cpu: 100m
+
+    # Maximum memory allowed for the container
     memory: 128Mi
