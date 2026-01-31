@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "httpecho.fullname" . }}-httpecho
+  labels:
+    {{- include "httpecho.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.httpecho.replicaCount }}
+  selector:
+    matchLabels:
+      app: httpecho
+  template:
+    metadata:
+      labels:
+        app: httpecho
+        {{- include "httpecho.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: httpecho
+          image: "{{ .Values.httpecho.image }}:{{ .Values.httpecho.tag }}"
+          args:
+            - "-text=$(HTTPECHO_MESSAGE)"
+          envFrom:
+            - configMapRef:
+                name: {{ include "httpecho.fullname" . }}-config
+            - secretRef:
+                name: {{ include "httpecho.fullname" . }}-secret
+          ports:
+            - containerPort: {{ .Values.httpecho.servicePort }}
