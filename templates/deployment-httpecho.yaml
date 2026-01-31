@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: httpecho
-          image: "{{ .Values.httpecho.image }}:{{ .Values.httpecho.tag }}"
+          image: "{{ .Values.httpecho.image.repository }}:{{ .Values.httpecho.tag }}"
           args:
             - "-text=$(HTTPECHO_MESSAGE)"
           envFrom:
