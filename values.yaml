@@ -65,7 +65,15 @@ config:
 ##########################################################
 secrets:
   # Redis password or other sensitive data
-  redisPassword: "supersecret"
+  redisPassword: ""
+
+##########################################################
+# Redis configuration (Secret)
+##########################################################
+redis:
+  image: redis
+  tag: "7.2"
+  servicePort: 6379
 
 ##########################################################
 # Pod resource requests and limits
