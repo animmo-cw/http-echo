@@ -1,4 +1,4 @@
-ert-manager:
+cert-manager:
   enabled: true
   syncPolicy:
     automated:
