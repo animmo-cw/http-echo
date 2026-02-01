@@ -1,0 +1,79 @@
+cert-manager:
+  enabled: true
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+
+cluster-crds:
+  enabled: true
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+
+clusterissuer:
+  enabled: true
+  source:
+    repoURL: "git@github.com:coreweave/s30971-gitops.git"
+    path: clusterissuer
+    targetRevision: devel
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+
+traefik:
+  enabled: true
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+  clusters:
+    - name: "animmo-milestone"
+      valueFiles:
+        - path: "traefik/andy-test.yaml"
+          branch: devel
+
+rstudio:
+  enabled: false
+  source:
+    repoURL: "https://helm.rstudio.com"
+    chart: rstudio-workbench
+    targetRevision: 0.10.3
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+  clusters:
+    - name: "animmo-milestone"
+      values:
+        orgID: "s30971"
+        clusterName: "animmo-milestone"
+        ingress:
+          enabled: true
+        grafana:
+          ingress:
+            enabled: true
+            
+jupyter:
+  enabled: false
+  source:
+    repoURL: "https://hub.jupyter.org/helm-chart/"
+    chart: jupyterhub
+    targetRevision: 4.3.2
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+
+httpecho:
+  enabled: true
+  source:
+    repoURL: "https://github.com/animmo-cw/http-echo"
+    chart: httpecho
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
