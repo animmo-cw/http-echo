@@ -1,0 +1,4 @@
+Error: INSTALLATION FAILED: httpecho/templates/ingress.yaml:4:17
+  executing "httpecho/templates/ingress.yaml" at <include "httpecho.coreweaveHostname" (dict "service" "httpecho" "context" .)>:
+    error calling include:
+template: no template "httpecho.coreweaveHostname" associated with template "gotpl"
