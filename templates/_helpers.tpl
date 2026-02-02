@@ -48,3 +48,14 @@ Requires: orgID and clusterName to be set in values (via ArgoCD parameters or va
 {{- fail "orgID and clusterName must be set in values (set via ArgoCD parameters: orgID and clusterName)" -}}
 {{- end -}}
 {{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "httpecho.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "httpecho.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
