@@ -32,3 +32,19 @@ Must remain stable to avoid breaking upgrades.
 app.kubernetes.io/name: {{ include "httpecho.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Build CoreWeave hostname from service name, orgID, and clusterName
+Usage: {{ include "httpecho.coreweaveHostname" (dict "service" "strudel" "context" .) }}
+Requires: orgID and clusterName to be set in values (via ArgoCD parameters or values file)
+*/}}
+{{- define "httpecho.coreweaveHostname" -}}
+{{- $service := .service -}}
+{{- $orgID := .context.Values.orgID | default "" -}}
+{{- $clusterName := .context.Values.clusterName | default "" -}}
+{{- if and $orgID $clusterName -}}
+{{- printf "%s.%s-%s.coreweave.app" $service $orgID $clusterName -}}
+{{- else -}}
+{{- fail "orgID and clusterName must be set in values (set via ArgoCD parameters: orgID and clusterName)" -}}
+{{- end -}}
+{{- end }}
