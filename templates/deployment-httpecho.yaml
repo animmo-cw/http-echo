@@ -26,4 +26,4 @@ spec:
             - secretRef:
                 name: {{ include "httpecho.fullname" . }}-secret
           ports:
-            - containerPort: {{ .Values.service.servicePort }}
+            - containerPort: {{ .Values.service.port }}
