@@ -11,7 +11,7 @@ clusterName: ""
 ##########################################################
 
 # Number of replicas for the httpecho Deployment
-replicaCount: 2
+replicaCount: 1
 
 # Application port
 port: 4567
