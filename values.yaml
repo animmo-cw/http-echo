@@ -66,21 +66,6 @@ config:
   environment: dev
 
 ##########################################################
-# Secret configuration (Secret)
-##########################################################
-secrets:
-  # Redis password or other sensitive data
-  redisPassword: ""
-
-##########################################################
-# Redis configuration (Secret)
-##########################################################
-redis:
-  image: redis
-  tag: "7.2"
-  servicePort: 6379
-
-##########################################################
 # Service account configuration
 ##########################################################
 serviceAccount:
