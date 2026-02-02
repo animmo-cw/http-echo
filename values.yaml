@@ -78,6 +78,15 @@ redis:
   servicePort: 6379
 
 ##########################################################
+# Service account configuration
+##########################################################
+serviceAccount:
+  create: true
+  automount: false
+  annotations: {}
+  name: ""
+
+##########################################################
 # Pod resource requests and limits
 ##########################################################
 resources:
