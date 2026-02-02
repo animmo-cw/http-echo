@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "httpecho.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.httpecho.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: httpecho
