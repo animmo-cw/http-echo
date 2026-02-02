@@ -1,50 +1,48 @@
 {{- if .Values.ingress.enabled }}
 {{- $fullName := include "httpecho.fullname" . }}
-{{- $svcPort := .Values.service.port }}
+{{- $svcPort := .Values.httpecho.service.port }}
 {{- $hostname := include "httpecho.coreweaveHostname" (dict "service" "httpecho" "context" .) }}
 ---
-apiVersion: networking.k8s.io/v1  # Use the networking.k8s.io/v1 API for Ingress (modern version)
-kind: Ingress                     # This resource defines an Ingress for routing external traffic to services
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: {{ $fullName }}-ingress   # Name of the Ingress resource, combination of chart name and this resource type
+  name: {{ $fullName }}-ingress
   labels:
-    {{- include "httpecho.labels" . | nindent 4 }}  # Include standard chart labels
-    component: ingress            # Add a label specifying this is the ingress component
+    {{- include "httpecho.labels" . | nindent 4 }}
+    component: ingress
   {{- with .Values.ingress.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}  # Add any user-specified annotations
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   {{- if .Values.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.ingress.ingressClassName }}  # Specify the IngressClass if defined in values.yaml
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   {{- end }}
-  
   {{- if .Values.ingress.tls }}
-  tls:                               # TLS configuration for secure HTTPS routing
+  tls:
     {{- range .Values.ingress.tls }}
-    - hosts:                         # List of hosts for this TLS entry
+    - hosts:
         {{- if .hosts }}
         {{- range .hosts }}
-        - {{ . | quote }}         
+        - {{ . | quote }}
         {{- end }}
         {{- else }}
-        - {{ $hostname | quote }}    # Default to the main hostname if none specified
+        - {{ $hostname | quote }}
         {{- end }}
-      secretName: {{ .secretName }}  # Kubernetes Secret containing TLS certificate for the host(s)
+      secretName: {{ .secretName }}
     {{- end }}
   {{- end }}
-  
-  rules:                             # Define routing rules for incoming requests
-    - host: {{ $hostname | quote }}  # The hostname this Ingress will respond to
+  rules:
+    - host: {{ $hostname | quote }}
       http:
-        paths:                       # List of paths/routes for this host
+        paths:
           {{- range .Values.ingress.paths }}
-          - path: {{ .path }}        # Path pattern to match
-            pathType: {{ .pathType }} # Type of path matching (e.g., Prefix, Exact)
-            backend:                 # Backend service to forward traffic to
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
               service:
-                name: {{ $fullName }}-app  # Name of the target Service
+                name: {{ $fullName }}-app
                 port:
-                  number: {{ $svcPort }}  # Port of the target Service
+                  number: {{ $svcPort }}
           {{- end }}
 {{- end }}
