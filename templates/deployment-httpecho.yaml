@@ -27,18 +27,19 @@ spec:
             - secretRef:
                 name: {{ include "httpecho.fullname" . }}-secret
           ports:
-            containerPort: {{ .Values.service.port }}
-            protocol: TCP
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.port }}
+              port: {{ .Values.service.port }}
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .Values.port }}
+              port: {{ .Values.service.port }}
             initialDelaySeconds: 10
             periodSeconds: 5
 
