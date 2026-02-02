@@ -40,15 +40,17 @@ service:
 # Ingress configuration
 ##########################################################
 ingress:
-  # Enable or disable Ingress creation
-  enabled: false
-
-  # Specify which ingress controller to use
+  enabled: true
   ingressClassName: traefik
-
-  # Export the following data to the external ingress controller application
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+
+  paths:
+    - path: /
+      pathType: Prefix
+  tls:
+    - secretName: httpecho-tls
+      hosts: [] 
 
 ##########################################################
 # Application configuration (ConfigMap)
