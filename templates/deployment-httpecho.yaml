@@ -29,18 +29,18 @@ spec:
           ports:
             containerPort: {{ .Values.service.port }}
             protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /
-            port: {{- .Values.port }}
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: {{- .Values.port }}
-          initialDelaySeconds: 10
-          periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 5
 
 ---
 apiVersion: v1
