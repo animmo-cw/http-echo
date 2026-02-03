@@ -14,7 +14,7 @@ clusterName: ""
 replicaCount: 1
 
 # Application port
-port: 4567
+port: 5678
 
 ##########################################################
 # Container image settings
@@ -37,7 +37,7 @@ service:
   type: ClusterIP
 
   # Service port to expose the container
-  port: 4567
+  port: 80
 
 ##########################################################
 # Ingress configuration
