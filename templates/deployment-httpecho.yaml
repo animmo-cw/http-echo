@@ -21,7 +21,7 @@ spec:
         - name: httpecho
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           args:
-            - "-text=$(HTTPECHO_MESSAGE)"
+            - "-text=$(MESSAGE)"
           envFrom:
             - configMapRef:
                 name: {{ include "httpecho.fullname" . }}-config
