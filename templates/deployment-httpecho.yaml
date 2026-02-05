@@ -14,6 +14,7 @@ spec:
       labels:
         app: httpecho
         {{- include "httpecho.labels" . | nindent 8 }}
+        component: app
     spec:
       serviceAccountName: {{ include "httpecho.serviceAccountName" . }}
       containers:
